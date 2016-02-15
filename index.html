@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<style>
+    span {
+        display: inline-block;
+        border: 1px solid #000;
+        margin: 10px 15px 5px 0;
+        width: 50px;
+        height: 50px;
+        vertical-align: top;
+        text-align: center;
+        line-height: 50px;
+        cursor: pointer;
+    }
+</style>
+
+<button id="generate-click">Generate click</button>
+<button id="show-result">Show result</button>
+<button id="reset">Reset</button>
+
+<script type="text/javascript" language="javascript">
+
+for (var iHeight = 1, iPosition = 1; iHeight <= 10; iHeight++) {
+    var div = document.createElement('div');
+    var elements = "";
+    for (var iWidth = 1; iWidth <= 10; iWidth++) {
+        elements +='<span data-value="0" id="' + iPosition + '"></span>';
+        iPosition ++;
+    }
+    div.innerHTML = elements;
+    document.body.appendChild(div);
+}
+
+
+document.getElementById("generate-click").addEventListener("click", function(){
+    for (var i = 0; i < 100; i++) {
+        var idElement = Math.floor(Math.random() * 100) + 1;
+        var valElement = document.getElementById(idElement).getAttribute("data-value");
+        valElement++;
+        document.getElementById(idElement).setAttribute("data-value", valElement);
+    }
+});
+
+document.getElementById("show-result").addEventListener("click", function(){
+    for (var i = 1; i <= 100; i++) {
+        var valElement = document.getElementById(i).getAttribute("data-value");
+        document.getElementById(i).innerHTML = valElement;
+
+        if (valElement > 100) {
+           document.getElementById(i).style.backgroundColor = '#F50202';
+        }
+        if (valElement < 100 && valElement > 75) {
+            document.getElementById(i).style.backgroundColor = '#FC8505';
+        }
+        if (valElement < 75 && valElement > 50) {
+            document.getElementById(i).style.backgroundColor = '#FCCF05';
+        }
+        if (valElement < 50 && valElement > 25) {
+            document.getElementById(i).style.backgroundColor = '#FCF6A9';
+        }
+    }
+});
+
+document.getElementById("reset").addEventListener("click", function(){
+    for (var i = 1; i <= 100; i++) {
+        document.getElementById(i).innerHTML = '';
+        document.getElementById(i).style.backgroundColor = '';
+        document.getElementById(i).setAttribute("data-value", 0);
+    }
+});
+
+document.onclick = function(event) {
+    if (!event.target.hasAttribute('data-value')) return;
+    var element = event.target;
+    var valElement = element.getAttribute("data-value");
+    valElement++;
+    element.setAttribute("data-value", valElement);
+}
+
+</script>
+
+</body>
+</html>
