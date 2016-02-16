@@ -24,8 +24,7 @@
 <button id="reset">Reset</button>
 
 <script type="text/javascript" language="javascript">
-
-
+console.log(12);
 function show(thisElement, value) {
     thisElement.setAttribute("data-value", value);
     thisElement.innerHTML = value;
@@ -43,7 +42,44 @@ function show(thisElement, value) {
     }
 }
 
+function showAll() {
+    for (var i = 1; i <= 100; i++) {
+        var element = document.getElementById(i);
+        var valElement = element.getAttribute("data-value");
+        show(element, valElement)
+    }
+}
 
+function reset() {
+    for (var i = 1; i <= 100; i++) {
+        var element = document.getElementById(i);
+        element.innerHTML = '';
+        element.style.backgroundColor = '';
+        element.setAttribute("data-value", 0);
+    }
+}
+
+function generateClick() {
+    for (var i = 0; i < 100; i++) {
+        var idElement = Math.floor(Math.random() * 100) + 1;
+        var element = document.getElementById(idElement);
+
+        var valElement = element.getAttribute("data-value");
+        valElement++;
+        element.setAttribute("data-value", valElement);
+        if (element.innerHTML > 0) {
+            element.innerHTML = valElement;
+        }
+    }
+}
+
+function clickElement(event) {
+    if (!event.target.hasAttribute('data-value')) return;
+    var element = event.target;
+    var valElement = element.getAttribute("data-value");
+    valElement++;
+    show(element, valElement);
+}
 
 var body = document.body;
 
@@ -58,41 +94,15 @@ for (var iHeight = 1, iPosition = 1; iHeight <= 10; iHeight++) {
     body.appendChild(div);
 }
 
+document.getElementById("generate-click").addEventListener("click", generateClick);
 
-document.getElementById("generate-click").addEventListener("click", function(){
-    for (var i = 0; i < 100; i++) {
-        var idElement = Math.floor(Math.random() * 100) + 1;
-        var element = document.getElementById(idElement);
-        var valElement = element.getAttribute("data-value");
-        valElement++;
-        element.setAttribute("data-value", valElement);
-    }
-});
+document.getElementById("show-result").addEventListener("click", showAll);
 
-document.getElementById("show-result").addEventListener("click", function(){
-    for (var i = 1; i <= 100; i++) {
-        var element = document.getElementById(i);
-        var valElement = element.getAttribute("data-value");
-        show(element, valElement)
-    }
-});
+document.getElementById("reset").addEventListener("click", reset);
 
-document.getElementById("reset").addEventListener("click", function(){
-    for (var i = 1; i <= 100; i++) {
-        var element = document.getElementById(i);
-        element.innerHTML = '';
-        element.style.backgroundColor = '';
-        element.setAttribute("data-value", 0);
-    }
-});
+document.onclick = clickElement;
 
-document.onclick = function(event) {
-    if (!event.target.hasAttribute('data-value')) return;
-    var element = event.target;
-    var valElement = element.getAttribute("data-value");
-    valElement++;
-    show(element ,valElement);
-}
+
 
 
 
