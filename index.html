@@ -25,6 +25,26 @@
 
 <script type="text/javascript" language="javascript">
 
+
+function show(thisElement, value) {
+    thisElement.setAttribute("data-value", value);
+    thisElement.innerHTML = value;
+    if (value > 100) {
+       thisElement.style.backgroundColor = '#F50202';
+    }
+    if (value < 100 && value > 75) {
+        thisElement.style.backgroundColor = '#FC8505';
+    }
+    if (value < 75 && value > 50) {
+        thisElement.style.backgroundColor = '#FCCF05';
+    }
+    if (value < 50 && value > 25) {
+        thisElement.style.backgroundColor = '#FCF6A9';
+    }
+}
+
+
+
 var body = document.body;
 
 for (var iHeight = 1, iPosition = 1; iHeight <= 10; iHeight++) {
@@ -53,19 +73,7 @@ document.getElementById("show-result").addEventListener("click", function(){
     for (var i = 1; i <= 100; i++) {
         var element = document.getElementById(i);
         var valElement = element.getAttribute("data-value");
-        element.innerHTML = valElement;
-        if (valElement > 100) {
-           element.style.backgroundColor = '#F50202';
-        }
-        if (valElement < 100 && valElement > 75) {
-            element.style.backgroundColor = '#FC8505';
-        }
-        if (valElement < 75 && valElement > 50) {
-            element.style.backgroundColor = '#FCCF05';
-        }
-        if (valElement < 50 && valElement > 25) {
-            element.style.backgroundColor = '#FCF6A9';
-        }
+        show(element, valElement)
     }
 });
 
@@ -83,8 +91,10 @@ document.onclick = function(event) {
     var element = event.target;
     var valElement = element.getAttribute("data-value");
     valElement++;
-    element.setAttribute("data-value", valElement);
+    show(element ,valElement);
 }
+
+
 
 </script>
 
