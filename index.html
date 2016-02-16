@@ -25,6 +25,8 @@
 
 <script type="text/javascript" language="javascript">
 
+var body = document.body;
+
 for (var iHeight = 1, iPosition = 1; iHeight <= 10; iHeight++) {
     var div = document.createElement('div');
     var elements = "";
@@ -33,44 +35,46 @@ for (var iHeight = 1, iPosition = 1; iHeight <= 10; iHeight++) {
         iPosition ++;
     }
     div.innerHTML = elements;
-    document.body.appendChild(div);
+    body.appendChild(div);
 }
 
 
 document.getElementById("generate-click").addEventListener("click", function(){
     for (var i = 0; i < 100; i++) {
         var idElement = Math.floor(Math.random() * 100) + 1;
-        var valElement = document.getElementById(idElement).getAttribute("data-value");
+        var element = document.getElementById(idElement);
+        var valElement = element.getAttribute("data-value");
         valElement++;
-        document.getElementById(idElement).setAttribute("data-value", valElement);
+        element.setAttribute("data-value", valElement);
     }
 });
 
 document.getElementById("show-result").addEventListener("click", function(){
     for (var i = 1; i <= 100; i++) {
-        var valElement = document.getElementById(i).getAttribute("data-value");
-        document.getElementById(i).innerHTML = valElement;
-
+        var element = document.getElementById(i);
+        var valElement = element.getAttribute("data-value");
+        element.innerHTML = valElement;
         if (valElement > 100) {
-           document.getElementById(i).style.backgroundColor = '#F50202';
+           element.style.backgroundColor = '#F50202';
         }
         if (valElement < 100 && valElement > 75) {
-            document.getElementById(i).style.backgroundColor = '#FC8505';
+            element.style.backgroundColor = '#FC8505';
         }
         if (valElement < 75 && valElement > 50) {
-            document.getElementById(i).style.backgroundColor = '#FCCF05';
+            element.style.backgroundColor = '#FCCF05';
         }
         if (valElement < 50 && valElement > 25) {
-            document.getElementById(i).style.backgroundColor = '#FCF6A9';
+            element.style.backgroundColor = '#FCF6A9';
         }
     }
 });
 
 document.getElementById("reset").addEventListener("click", function(){
     for (var i = 1; i <= 100; i++) {
-        document.getElementById(i).innerHTML = '';
-        document.getElementById(i).style.backgroundColor = '';
-        document.getElementById(i).setAttribute("data-value", 0);
+        var element = document.getElementById(i);
+        element.innerHTML = '';
+        element.style.backgroundColor = '';
+        element.setAttribute("data-value", 0);
     }
 });
 
